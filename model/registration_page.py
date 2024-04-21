@@ -2,11 +2,44 @@ from model import resource
 
 from selene import browser, have, command
 
+from model.user import User
+
 
 class RegistrationPage:
 
     def open(self):
         browser.open('/automation-practice-form')
+
+    def register(self, user: User):
+        self.fill_first_name(user.first_name)
+        self.fill_last_name(user.last_name)
+        self.fill_email(user.email)
+        self.fill_gender(user.gender.value)
+        self.fill_mobile_number(user.mobile)
+        self.fill_date_of_birth(user.year, user.month, user.day)
+        self.fill_subjects(user.subjects.value)
+        self.fill_hobbies(user.hobbies.value)
+        self.upload_picture(user.picture)
+        self.fill_current_address(user.current_address)
+        self.fill_state(user.state)
+        self.fill_city(user.city)
+
+    def should_have_registered(self, user: User):
+        self.should_registered_user_with(
+            user.first_name,
+            user.last_name,
+            user.email,
+            user.gender.value,
+            user.mobile,
+            f'{user.day} {user.month},{user.year}',
+            user.subjects.value,
+            user.hobbies.value,
+            user.picture,
+            user.current_address,
+            user.state,
+            user.city
+        )
+
 
     def fill_first_name(self, value):
         browser.element('#firstName').set_value(value)
