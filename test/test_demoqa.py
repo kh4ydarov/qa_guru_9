@@ -4,7 +4,7 @@ from selene import browser, be, have, command
 import os
 
 
-def test_complete_todo():
+def test_registration_form():
     browser.open('/automation-practice-form')
     browser.element('.text-center').should(have.text('Practice Form'))
 
